@@ -3,5 +3,8 @@ export default defineNuxtConfig({
   css: ["vuetify/styles/main.sass"],
   build: {
     transpile: ["vuetify"]
-  }
+  },
+  modules: [
+    '@pinia/nuxt',
+  ],
 })
