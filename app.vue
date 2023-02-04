@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <v-btn
-      variant="plain">
-      Hello world
-    </v-btn>
-  </div>
+  <v-app>
+    <NuxtPage />
+    <navbar />
+  </v-app>
 </template>
