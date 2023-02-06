@@ -1,9 +1,6 @@
-
-import { useAppStore } from './stores/app';
-
 <template>
-  <v-app>
-    <v-main :theme="useAppStore().getTheme">
+  <v-app :theme="useAppStore().getTheme">
+    <v-main>
       <NuxtPage />
     </v-main>
     <navbar />
