@@ -8,6 +8,13 @@ export default defineNuxtConfig({
     transpile: ["vuetify"]
   },
   modules: [
-    '@pinia/nuxt',
+    [ '@pinia/nuxt',
+      {
+        autoImports: [
+          'defineStore',
+          ['defineStore', 'definePiniaStore'],
+        ],
+      },
+    ],
   ],
 })
