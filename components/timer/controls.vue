@@ -49,6 +49,7 @@ const startTimer = () => {
   }
   timerState.setTimeRemaining(timerState.getTimeRemaining - 1)
 }
+onBeforeUnmount(() => clearInterval(state.interval))
 </script>
 <style scoped>
 .controls-container {
