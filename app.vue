@@ -1,9 +1,9 @@
 <template>
   <v-app :theme="useAppStore().getTheme">
+    <Toolbar />
     <v-main>
       <NuxtPage />
     </v-main>
-    <navbar />
   </v-app>
 </template>
 <script setup>
