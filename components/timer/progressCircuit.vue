@@ -8,13 +8,15 @@
       :model-value="useTimerStore().getTimeRemaining*100 / baseTime"
       color="teal"
     >
-      {{ useTimerStore().getTimeRemaining }}
+    {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
     </v-progress-circular>
   </div>
 </template>
 <script setup>
 import { useTimerStore } from '/stores/timer';
 const baseTime = useTimerStore().getTimeRemaining
+const getMinutes = () => Math.floor(useTimerStore().getTimeRemaining / 60)
+const getSeconds = () => useTimerStore().getTimeRemaining - 60 * getMinutes()
 </script>
 <style scoped>
 .progress {
