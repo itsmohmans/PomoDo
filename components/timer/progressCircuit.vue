@@ -10,6 +10,10 @@
     >
     {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
     </v-progress-circular>
+    <div class="session-info">
+      <p>{{ timer.timerSettings[timer.getCurrentSession].text }}</p>
+      <p>Session {{ timer.getCurrentSessionNumber }} / {{ timer.getMaxSessions }}</p>
+    </div>
   </div>
 </template>
 <script setup>
