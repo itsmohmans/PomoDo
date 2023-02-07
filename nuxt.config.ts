@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     transpile: ["vuetify"]
   },
   modules: [
+    '@vueuse/nuxt',
     [ '@pinia/nuxt',
       {
         autoImports: [
