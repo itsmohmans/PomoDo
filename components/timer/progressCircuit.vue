@@ -3,9 +3,9 @@
     <v-progress-circular
       :rotate="360"
       :size="400"
-      :width="60"
+      :width="40"
       class="progress"
-      :model-value="useTimerStore().getTimeRemaining*100 / baseTime"
+      :model-value="timer.getTimeRemaining*100 / timer.getSessionTime"
       color="teal"
     >
     {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
@@ -18,12 +18,15 @@
 </template>
 <script setup>
 import { useTimerStore } from '/stores/timer';
-const baseTime = useTimerStore().getTimeRemaining
-const getMinutes = () => Math.floor(useTimerStore().getTimeRemaining / 60)
-const getSeconds = () => useTimerStore().getTimeRemaining - 60 * getMinutes()
+const timer = useTimerStore()
+const getMinutes = () => Math.floor(timer.getTimeRemaining / 60)
+const getSeconds = () => timer.getTimeRemaining - 60 * getMinutes()
 </script>
 <style scoped>
 .progress {
   font-size: 4rem;
+}
+.session-info {
+  margin-top: 2rem;
 }
 </style>

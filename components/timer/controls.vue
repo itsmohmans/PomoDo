@@ -5,7 +5,7 @@
       size="small"
       icon
       color="teal"
-      @click="timerState.clearTimeRemaining()"
+      @click="timer.clearTimeRemaining()"
     >
       <v-icon>mdi-restart</v-icon>
     </v-btn>
@@ -13,17 +13,17 @@
       elevation="4"
       size="x-large" width="144"
       color="teal"
-      :variant="timerState.isStarted ? 'outlined' : 'elevated'"
+      :variant="timer.isStarted ? 'outlined' : 'elevated'"
       @click="toggleStart"
     >
-      {{timerState.isStarted ? 'Stop' : 'Start'}}
+      {{timer.isStarted ? 'Stop' : 'Start'}}
     </v-btn>
     <v-btn
       variant="outlined"
       size="small"
       icon
       color="teal"
-      @click="timerState.clearTimeRemaining()"
+      @click="timer.nextSession()"
     >
       <v-icon>mdi-skip-next</v-icon>
     </v-btn>
@@ -31,14 +31,14 @@
 </template>
 <script setup>
 import { useTimerStore } from '/stores/timer';
-const timerState = useTimerStore()
+const timer = useTimerStore()
 const state = reactive({
   interval: {} // store the running interval
 })
 
 const toggleStart = () => {
-  timerState.toggleTimer()
-  if (timerState.isStarted) {
+  timer.toggleTimer()
+  if (timer.isStarted) {
     state.interval = setInterval(startTimer, 1000)
   }
   else clearInterval(state.interval)
@@ -47,7 +47,7 @@ const startTimer = () => {
   if (timer.getTimeRemaining === 0) {
     return timer.nextSession()
   }
-  timerState.setTimeRemaining(timerState.getTimeRemaining - 1)
+  timer.setTimeRemaining(timer.getTimeRemaining - 1)
 }
 onBeforeUnmount(() => clearInterval(state.interval))
 </script>
