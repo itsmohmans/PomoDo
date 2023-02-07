@@ -21,6 +21,13 @@ import { useTimerStore } from '/stores/timer';
 const timer = useTimerStore()
 const getMinutes = () => Math.floor(timer.getTimeRemaining / 60)
 const getSeconds = () => timer.getTimeRemaining - 60 * getMinutes()
+
+useHead(() => {
+  return {
+    titleTemplate: `${timer.timerSettings[timer.getCurrentSession].text} - ${getMinutes()} Mins left | PomoDo`
+  }
+})
+
 </script>
 <style scoped>
 .progress {
