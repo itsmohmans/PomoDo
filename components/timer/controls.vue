@@ -50,6 +50,12 @@ const startTimer = () => {
   timer.setTimeRemaining(timer.getTimeRemaining - 1)
 }
 onBeforeUnmount(() => clearInterval(state.interval))
+
+// Keyboard shortcut to toggle timer (spacebar)
+onKeyStroke(" ", (e) => {
+  e.preventDefault()
+  toggleStart()
+})
 </script>
 <style scoped>
 .controls-container {
