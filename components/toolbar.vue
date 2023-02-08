@@ -9,7 +9,7 @@
       icon
     >
       <v-icon>mdi-{{page.icon}}</v-icon>
-      <v-tooltip activator="parent" location="bottom">
+      <v-tooltip activator="parent" location="bottom" open-delay="500">
         {{ page.title }}
       </v-tooltip>
     </v-btn>
@@ -17,14 +17,14 @@
     <v-spacer v-if="!isFullscreen"></v-spacer>
 
     <v-btn v-if="!isFullscreen" icon @click="useAppStore().toggleTheme()">
-      <v-icon>{{ useAppStore().getTheme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
-      <v-tooltip activator="parent" location="bottom">
+      <v-icon>{{ useAppStore().getTheme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny' }}</v-icon>
+      <v-tooltip activator="parent" location="bottom" open-delay="500">
         Toggle Theme
       </v-tooltip>
     </v-btn>
     <v-btn icon @click="toggle">
       <v-icon>{{ isFullscreen ? 'mdi-arrow-collapse' : 'mdi-arrow-expand' }}</v-icon>
-      <v-tooltip activator="parent" location="bottom">
+      <v-tooltip activator="parent" location="bottom" open-delay="500">
         Toggle full screen
       </v-tooltip>
     </v-btn>
