@@ -103,9 +103,11 @@
             </template>
           </v-slider>
         </v-list-item>
-        <v-list-item title="Auto start next session">
+        <v-list-item
+          title="Auto Start Sessions"
+          subtitle="Automatically start the next session when the time for current session is up.">
           <template v-slot:prepend>
-            <v-checkbox v-model="settings.timer.autoStart"></v-checkbox>
+            <v-checkbox v-model="settings.timer.autoStart" color="teal"></v-checkbox>
           </template>
         </v-list-item>
       
@@ -115,12 +117,12 @@
         <v-list-subheader>General Settings</v-list-subheader>
         <v-list-item title="Notifications" subtitle="Show notification when a session ends">
           <template v-slot:prepend>
-            <v-checkbox v-model="settings.showNotification"></v-checkbox>
+            <v-checkbox v-model="settings.showNotification" color="teal"></v-checkbox>
           </template>
         </v-list-item>
         <v-list-item title="Dark / Light Theme Toggle" subtitle="Show a theme toggle">
           <template v-slot:prepend>
-            <v-checkbox v-model="settings.showThemeToggle"></v-checkbox>
+            <v-checkbox v-model="settings.showThemeToggle" color="teal"></v-checkbox>
           </template>
         </v-list-item>
 
@@ -152,7 +154,7 @@
         </v-btn>
         <v-btn
           color="teal"
-          variant="text"
+          variant="flat"
           @click="saveSettings"
         >
           Save

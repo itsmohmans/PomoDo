@@ -3,7 +3,7 @@
     <v-progress-circular
       :rotate="360"
       :size="400"
-      :width="40"
+      :width="3"
       class="progress"
       :model-value="timer.getTimeRemaining*100 / timer.getSessionTime"
       color="teal"
@@ -31,7 +31,7 @@ useHead(() => {
 </script>
 <style scoped>
 .progress {
-  font-size: 4rem;
+  font-size: 5rem;
 }
 .session-info {
   margin-top: 2rem;
