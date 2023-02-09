@@ -133,6 +133,22 @@
             <v-checkbox v-model="settings.showThemeToggle"></v-checkbox>
           </template>
         </v-list-item>
+
+        <!-- Footer -->
+        <v-divider></v-divider>
+        <v-footer>
+          <div class="w-100 py-1 text-center">
+            Made with ❤️ by Mo Mansour
+            <v-btn
+              icon="mdi-github"
+              variant="plain"
+              size="medium"
+              href="https://github.com/itsmohmans/pomodo"
+              target="_blank"
+              class="mx-4"
+            ></v-btn>
+          </div>
+        </v-footer>
       </v-list>
     </v-card>
   </v-dialog>
