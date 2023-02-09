@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div class="text-center mt-10">
     <v-progress-circular
       :rotate="360"
       :size="400"
@@ -11,7 +11,7 @@
     {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
     </v-progress-circular>
     <div class="session-info">
-      <p>{{ timer.timerSettings[timer.getCurrentSession].text }}</p>
+      <p>{{ timer.settings[timer.getCurrentSession].text }}</p>
       <p>Session {{ timer.getCurrentSessionNumber }} / {{ timer.getMaxSessions }}</p>
     </div>
   </div>
@@ -24,7 +24,7 @@ const getSeconds = () => timer.getTimeRemaining - 60 * getMinutes()
 
 useHead(() => {
   return {
-    titleTemplate: `${timer.timerSettings[timer.getCurrentSession].text} - ${getMinutes()} Mins left | PomoDo`
+    titleTemplate: `${timer.settings[timer.getCurrentSession].text} - ${getMinutes()} Mins left | PomoDo`
   }
 })
 
