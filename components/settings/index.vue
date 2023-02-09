@@ -185,6 +185,7 @@ const settings = reactive({
     autoStart: timer.autoStart
   },
   showNotification: app.showNotification,
+  showThemeToggle: app.showThemeToggle,
 })
 
 const sliderTicks = reactive({
@@ -215,6 +216,7 @@ const saveSettings = () => {
   timer.setMaxSessions(settings.timer['max-sessions'])
   timer.autoStart = settings.timer.autoStart
   settings.showNotification ? saveNotification() : app.showNotification = false
+  app.showThemeToggle = settings.showThemeToggle
 
   state.dialog = false
   state.snackbar = true

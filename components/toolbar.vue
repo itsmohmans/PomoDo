@@ -2,7 +2,7 @@
   <v-toolbar :collapse="isFullscreen" density="compact" color="background">
     <Settings v-if="!isFullscreen" />
     <v-spacer v-if="!isFullscreen"></v-spacer>
-    <v-btn v-if="!isFullscreen" icon @click="useAppStore().toggleTheme()">
+    <v-btn v-if="!isFullscreen && useAppStore().showThemeToggle" icon @click="useAppStore().toggleTheme()">
       <v-icon>{{ useAppStore().getTheme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny' }}</v-icon>
       <v-tooltip activator="parent" location="bottom" open-delay="500">
         Toggle Theme

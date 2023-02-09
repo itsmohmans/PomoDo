@@ -2,6 +2,7 @@ export const useAppStore = defineStore('app', {
   state: () => ({
     theme: 'dark',
     showNotification: false,
+    showThemeToggle: true
   }),
   getters: {
     getTheme: (state) => state.theme
