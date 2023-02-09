@@ -172,7 +172,9 @@
 </template>
 <script setup>
 import { useTimerStore } from '~~/stores/timer';
+import {useAppStore} from '~~/stores/app'
 const timer = useTimerStore()
+const app = useAppStore()
 
 const settings = reactive({
   timer: {
@@ -182,8 +184,7 @@ const settings = reactive({
     'max-sessions': timer.getMaxSessions,
     autoStart: timer.autoStart
   },
-  showNotification: false,
-  showThemeToggle: true,
+  showNotification: app.showNotification,
 })
 
 const sliderTicks = reactive({
@@ -213,8 +214,23 @@ const saveSettings = () => {
   )
   timer.setMaxSessions(settings.timer['max-sessions'])
   timer.autoStart = settings.timer.autoStart
+  settings.showNotification ? saveNotification() : app.showNotification = false
+
   state.dialog = false
   state.snackbar = true
+}
+
+// get notification permission from the browser
+const saveNotification = () => {
+  const {isSupported, show} = useWebNotification({
+      title: "Notifications enabled.",
+  })
+  if (isSupported.value) {
+    app.showNotification = settings.showNotification
+    show()
+  } else {
+    console.error('Your browser does not support notifications.')
+  }
 }
 
 </script>

@@ -31,6 +31,8 @@
 </template>
 <script setup>
 import { useTimerStore } from '/stores/timer';
+import { useAppStore } from '~~/stores/app';
+const app = useAppStore()
 const timer = useTimerStore()
 const state = reactive({
   interval: {} // store the running interval
@@ -45,12 +47,34 @@ const toggleStart = () => {
 }
 const startTimer = () => {
   if (timer.getTimeRemaining <= 0) {
+    const currentSession = timer.settings[timer.currentSession].text
+    
     timer.nextSession()
+    const nextSession = timer.settings[timer.currentSession].text
+
+    if (app.showNotification) showNotification(currentSession, nextSession)
+    
     if (timer.autoStart)
       return
     return toggleStart()
   }
   timer.setTimeRemaining(timer.getTimeRemaining - 1)
+}
+
+const showNotification = (currentSession, nextSession) => {
+  const {
+    isSupported,
+    notification,
+    show,
+    onError,
+  } = useWebNotification({
+        title: `${currentSession} is done.`,
+        body: `You've just finished a ${String(currentSession).toLowerCase()} session. Now get ready to start the next session: ${nextSession}`,
+        renotify: true,
+        tag: currentSession
+  })
+  if (isSupported.value)
+    show()
 }
 onBeforeUnmount(() => clearInterval(state.interval))
 
