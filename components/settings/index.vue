@@ -2,8 +2,8 @@
   <div>
   <v-dialog
     v-model="state.dialog"
-    fullscreen
-    :scrim="false"
+    max-width='90vw'
+    max-height='600px'
     transition="dialog-bottom-transition"
     close-on-back
     retain-focus
@@ -16,20 +16,7 @@
         </v-tooltip>
       </v-btn>
     </template>
-    <v-card>
-      <v-toolbar>
-        <v-btn icon @click="state.dialog = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <v-toolbar-title>Settings</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn variant="text" @click="saveSettings">
-            Save
-          </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-      
+    <v-card>      
       <!-- Timer Settings -->
       <v-list>
         <v-list-subheader>Timer Settings</v-list-subheader>
@@ -118,10 +105,9 @@
           </template>
         </v-list-item>
       
-      <v-divider></v-divider>
+        <v-divider></v-divider>
 
       <!-- General Settings -->
-      
         <v-list-subheader>General Settings</v-list-subheader>
         <v-list-item title="Notifications" subtitle="Show notification when a session ends">
           <template v-slot:prepend>
@@ -150,6 +136,24 @@
           </div>
         </v-footer>
       </v-list>
+      
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="teal"
+          variant="text"
+          @click="state.dialog = false"
+        >
+          Close
+        </v-btn>
+        <v-btn
+          color="teal"
+          variant="text"
+          @click="saveSettings"
+        >
+          Save
+        </v-btn>
+        </v-card-actions>
     </v-card>
   </v-dialog>
   <v-snackbar
@@ -191,7 +195,6 @@ const sliderTicks = reactive({
     1: '1',
     10: '10'
   }
-
 })
 const state = reactive({
   dialog: false,
@@ -215,5 +218,4 @@ const saveSettings = () => {
 .dialog-bottom-transition-leave-active {
   transition: transform .2s ease-in-out;
 }
-
 </style>
