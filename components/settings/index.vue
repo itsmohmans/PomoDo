@@ -3,13 +3,14 @@
   <v-dialog
     v-model="state.dialog"
     max-width='90vw'
+    scrim="background"
     max-height='600px'
     transition="dialog-bottom-transition"
     close-on-back
     retain-focus
   >
     <template v-slot:activator="{ props }">
-      <v-btn icon v-bind="props" :disabled="timer.isStarted || timer.timeRemaining !== timer.settings[timer.currentSession].time">
+      <v-btn icon v-bind="props">
         <v-icon>mdi-cog</v-icon>
         <v-tooltip activator="parent" location="bottom" open-delay="500">
           Settings
@@ -18,7 +19,7 @@
     </template>
     <v-card>      
       <!-- Timer Settings -->
-      <v-list>
+      <v-list class="px-2 px-md-16">
         <v-list-subheader>Timer Settings</v-list-subheader>
         <!-- Work Time -->
         <v-list-item title="Work Sessions">
@@ -29,8 +30,9 @@
             step="5"
             show-ticks
             color="teal"
-            class="w-75"
+            class="w-100"
             :ticks="sliderTicks.workTimer"
+            thumb-label
           >
             <template v-slot:append>
               <v-text-field
@@ -56,8 +58,9 @@
             step="5"
             show-ticks
             color="teal"
-            class="w-75"
+            class="w-100"
             :ticks="sliderTicks.breakTimers"
+            thumb-label
           >
             <template v-slot:append>
               <v-text-field
@@ -84,8 +87,9 @@
             step="1"
             show-ticks
             color="teal"
-            class="w-75"
+            class="w-100"
             :ticks="sliderTicks.maxSessions"
+            thumb-label
           >
             <template v-slot:append>
               <v-text-field
@@ -216,6 +220,6 @@ const saveSettings = () => {
 <style>
 .dialog-bottom-transition-enter-active,
 .dialog-bottom-transition-leave-active {
-  transition: transform .2s ease-in-out;
+  transition: transform .1s ease-in-out;
 }
 </style>
