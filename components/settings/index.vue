@@ -180,7 +180,7 @@ const settings = reactive({
     'short-break': timer.settings['short-break'].time / 60,
     'long-break': timer.settings['long-break'].time / 60,
     'max-sessions': timer.getMaxSessions,
-    autoStart: true
+    autoStart: timer.autoStart
   },
   showNotification: false,
   showThemeToggle: true,
@@ -212,6 +212,7 @@ const saveSettings = () => {
     settings.timer['long-break']*60
   )
   timer.setMaxSessions(settings.timer['max-sessions'])
+  timer.autoStart = settings.timer.autoStart
   state.dialog = false
   state.snackbar = true
 }

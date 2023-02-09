@@ -44,8 +44,11 @@ const toggleStart = () => {
   else clearInterval(state.interval)
 }
 const startTimer = () => {
-  if (timer.getTimeRemaining === 0) {
-    return timer.nextSession()
+  if (timer.getTimeRemaining <= 0) {
+    timer.nextSession()
+    if (timer.autoStart)
+      return
+    return toggleStart()
   }
   timer.setTimeRemaining(timer.getTimeRemaining - 1)
 }
