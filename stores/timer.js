@@ -1,22 +1,21 @@
 export const useTimerStore = defineStore('timer', {
   state: () => ({
-    // all the time values are in seconds
     started: false,
     settings: {
       'work': {
         text: 'Work',
-        time: 25*60
+        time: 25 // in minutes
       },
       'short-break': {
         text: 'Short Break',
-        time: 5*60
+        time: 5
       },
       'long-break': {
         text: 'Long Break',
-        time: 15*60
+        time: 15
       }
     },
-    timeRemaining: 25*60,
+    timeRemaining: 25*60, // in seconds
     currentSession: 'work',   // index for settings
     currentSessionNumber: 1,
     maxSessions: 4,   // the number of sessions before a long break
@@ -36,7 +35,7 @@ export const useTimerStore = defineStore('timer', {
       this.started = !this.started
     },
     clearTimeRemaining() {
-      this.timeRemaining = this.settings[this.currentSession].time
+      this.timeRemaining = this.getSessionTime * 60
     },
     setTimeRemaining(time) {
       this.timeRemaining = time
@@ -53,7 +52,7 @@ export const useTimerStore = defineStore('timer', {
       else {
         this.currentSession = 'short-break'
       }
-      this.timeRemaining = this.settings[this.currentSession].time
+      this.timeRemaining = this.settings[this.currentSession].time * 60
     },
     setMaxSessions(maxSessionsNumber) {
       this.maxSessions = maxSessionsNumber
@@ -62,7 +61,7 @@ export const useTimerStore = defineStore('timer', {
       this.settings['work'].time = workTime
       this.settings["short-break"].time = shortBreakTime
       this.settings["long-break"].time = longBreakTime
-      this.timeRemaining = workTime
+      this.timeRemaining = workTime * 60
     }
   },
 })

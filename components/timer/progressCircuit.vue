@@ -5,7 +5,7 @@
       :size="400"
       :width="3"
       class="progress"
-      :model-value="timer.getTimeRemaining*100 / timer.getSessionTime"
+      :model-value="(timer.getTimeRemaining * 100) / (timer.getSessionTime * 60)"
       color="teal"
     >
     {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
