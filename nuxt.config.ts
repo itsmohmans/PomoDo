@@ -18,4 +18,9 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  runtimeConfig: {
+    public: {
+      APP_VERSION: process.env.APP_VERSION
+    }
+  }
 })
