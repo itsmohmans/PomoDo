@@ -24,7 +24,7 @@
         <!-- Work Time -->
         <v-list-item title="Work Sessions">
           <v-slider
-            v-model="settings.timer['work']"
+            v-model="timer.settings['work'].time"
             max="60"
             min="5"
             step="5"
@@ -36,7 +36,7 @@
           >
             <template v-slot:append>
               <v-text-field
-                v-model="settings.timer['work']"
+                v-model="timer.settings['work'].time"
                 hide-details
                 single-line
                 density="compact"
@@ -52,7 +52,7 @@
           :key="i"
           :title="timer.settings[value].text">
           <v-slider
-            v-model="settings.timer[value]"
+            v-model="timer.settings[value].time"
             max="60"
             min="0"
             step="5"
@@ -64,7 +64,7 @@
           >
             <template v-slot:append>
               <v-text-field
-                v-model="settings.timer[value]"
+                v-model="timer.settings[value].time"
                 hide-details
                 single-line
                 density="compact"
@@ -81,7 +81,7 @@
           subtitle="The number of work sessions before a long break"
           >
           <v-slider
-            v-model="settings.timer['max-sessions']"
+            v-model="timer.maxSessions"
             max="10"
             min="1"
             step="1"
@@ -93,7 +93,7 @@
           >
             <template v-slot:append>
               <v-text-field
-                v-model="settings.timer['max-sessions']"
+                v-model="timer.maxSessions"
                 hide-details
                 single-line
                 density="compact"
@@ -107,7 +107,8 @@
           title="Auto Start Sessions"
           subtitle="Automatically start the next session when the time for current session is up.">
           <template v-slot:prepend>
-            <v-checkbox v-model="settings.timer.autoStart" color="teal"></v-checkbox>
+            <!-- TODO: refactor checkboxes for better accessability -->
+            <v-checkbox v-model="timer.autoStart" color="teal"></v-checkbox>
           </template>
         </v-list-item>
       
@@ -117,12 +118,12 @@
         <v-list-subheader>General Settings</v-list-subheader>
         <v-list-item title="Notifications" subtitle="Show notification when a session ends">
           <template v-slot:prepend>
-            <v-checkbox v-model="settings.showNotification" color="teal"></v-checkbox>
+            <v-checkbox v-model="app.showNotification" color="teal"></v-checkbox>
           </template>
         </v-list-item>
         <v-list-item title="Dark / Light Theme Toggle" subtitle="Show a theme toggle">
           <template v-slot:prepend>
-            <v-checkbox v-model="settings.showThemeToggle" color="teal"></v-checkbox>
+            <v-checkbox v-model="app.showThemeToggle" color="teal"></v-checkbox>
           </template>
         </v-list-item>
 
@@ -137,7 +138,7 @@
               size="medium"
               href="https://github.com/itsmohmans/pomodo"
               target="_blank"
-              class="mx-4"
+              class="ml-3"
             ></v-btn>
           </div>
           <div class="app-version font-weight-thin text-disabled">
@@ -151,16 +152,9 @@
         <v-btn
           color="teal"
           variant="text"
-          @click="state.dialog = false"
-        >
-          Close
-        </v-btn>
-        <v-btn
-          color="teal"
-          variant="flat"
           @click="saveSettings"
         >
-          Save
+          Close
         </v-btn>
         </v-card-actions>
     </v-card>
@@ -176,7 +170,7 @@
 </div>
 </template>
 <script setup>
-import { useTimerStore } from '~~/stores/timer';
+import { useTimerStore } from '~~/stores/timer'
 import {useAppStore} from '~~/stores/app'
 const timer = useTimerStore()
 const app = useAppStore()
@@ -212,17 +206,12 @@ const state = reactive({
   snackbar: false
 })
 
+// save settings to localstorage
 const saveSettings = () => {
-  timer.setTimerSettings(
-    settings.timer.work*60,
-    settings.timer['short-break']*60,
-    settings.timer['long-break']*60
-  )
-  timer.setMaxSessions(settings.timer['max-sessions'])
-  timer.autoStart = settings.timer.autoStart
-  settings.showNotification ? saveNotification() : app.showNotification = false
-  app.showThemeToggle = settings.showThemeToggle
-
+  timer.clearTimeRemaining()
+  if(app.showNotification) saveNotification()
+  storeSettings()
+  
   state.dialog = false
   state.snackbar = true
 }
@@ -233,7 +222,6 @@ const saveNotification = () => {
       title: "Notifications enabled.",
   })
   if (isSupported.value) {
-    app.showNotification = settings.showNotification
     show()
   } else {
     console.error('Your browser does not support notifications.')
