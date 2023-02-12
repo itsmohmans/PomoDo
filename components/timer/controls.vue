@@ -17,6 +17,14 @@
       @click="toggleStart"
     >
       {{timer.isStarted ? 'Stop' : 'Start'}}
+      <v-tooltip
+        v-if="!mobile"
+        activator="parent"
+        location="bottom"
+        open-delay="500"
+      >
+        You can also use the keyboard's spacebar to start / stop
+      </v-tooltip>
     </v-btn>
     <v-btn
       variant="outlined"
@@ -32,6 +40,9 @@
 <script setup>
 import { useTimerStore } from '/stores/timer';
 import { useAppStore } from '~~/stores/app';
+import { useDisplay } from 'vuetify'
+
+const {mobile} = useDisplay()
 const app = useAppStore()
 const timer = useTimerStore()
 const state = reactive({
