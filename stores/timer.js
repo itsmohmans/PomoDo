@@ -16,7 +16,7 @@ export const useTimerStore = defineStore('timer', {
       }
     },
     timeRemaining: 25*60, // in seconds
-    currentSession: 'work',   // index for settings
+    currentSession: 'work',
     currentSessionNumber: 1,
     maxSessions: 4,   // the number of sessions before a long break
     autoStart: true
@@ -44,10 +44,10 @@ export const useTimerStore = defineStore('timer', {
       // if current session is not work (i.e. a break) 
       if (this.currentSession !== 'work') {
         this.currentSessionNumber = this.currentSessionNumber % this.maxSessions + 1
-        this.currentSession = 'work' // back to work
+        this.currentSession = 'work'
       }
       else if (this.currentSessionNumber === this.maxSessions) {
-        this.currentSession = 'long-break' // long break
+        this.currentSession = 'long-break'
       }
       else {
         this.currentSession = 'short-break'
