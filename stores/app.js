@@ -3,7 +3,7 @@ export const useAppStore = defineStore('app', {
     theme: 'dark',
     showNotification: false,
     playSessionEndSound: true,
-    alarmAudio: 'bell_1.wav', // ~/assets/sounds/{alarmAudio}.mp3
+    alarmAudio: 'bell_1', // ~/assets/sounds/{alarmAudio}.wav
     showThemeToggle: true
   }),
   getters: {

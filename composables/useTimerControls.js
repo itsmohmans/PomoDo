@@ -54,7 +54,7 @@ export const useTimerControls = () => {
 
   const playAlarm = async () => {
     // I want the audio to be dynamically imported, to to make it possible to change it later
-    const audio = await import(`../assets/sounds/${useAppStore().alarmAudio}`)
+    const audio = await import(`../assets/sounds/${useAppStore().alarmAudio}.wav`)
     const alarm = new Audio(audio.default)
     alarm.play()
   }
