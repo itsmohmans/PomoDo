@@ -24,7 +24,7 @@
         <!-- Work Time -->
         <v-list-item title="Work Sessions">
           <v-slider
-            v-model="timer.settings['work'].time"
+            v-model="timer().settings['work'].time"
             max="60"
             min="5"
             step="5"
@@ -36,7 +36,7 @@
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer.settings['work'].time"
+                v-model="timer().settings['work'].time"
                 hide-details
                 single-line
                 density="compact"
@@ -50,9 +50,9 @@
         <v-list-item
           v-for="value, i in ['short-break', 'long-break']"
           :key="i"
-          :title="timer.settings[value].text">
+          :title="timer().settings[value].text">
           <v-slider
-            v-model="timer.settings[value].time"
+            v-model="timer().settings[value].time"
             max="60"
             min="0"
             step="5"
@@ -64,7 +64,7 @@
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer.settings[value].time"
+                v-model="timer().settings[value].time"
                 hide-details
                 single-line
                 density="compact"
@@ -81,7 +81,7 @@
           subtitle="The number of work sessions before a long break"
           >
           <v-slider
-            v-model="timer.maxSessions"
+            v-model="timer().maxSessions"
             max="10"
             min="1"
             step="1"
@@ -93,7 +93,7 @@
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer.maxSessions"
+                v-model="timer().maxSessions"
                 hide-details
                 single-line
                 density="compact"
@@ -108,7 +108,7 @@
           subtitle="Automatically start the next session when the time for current session is up.">
           <template v-slot:prepend>
             <!-- TODO: refactor checkboxes for better accessability -->
-            <v-checkbox v-model="timer.autoStart" color="teal"></v-checkbox>
+            <v-checkbox v-model="timer().autoStart" color="teal"></v-checkbox>
           </template>
         </v-list-item>
       
@@ -118,12 +118,12 @@
         <v-list-subheader>General Settings</v-list-subheader>
         <v-list-item title="Notifications" subtitle="Show notification when a session ends">
           <template v-slot:prepend>
-            <v-checkbox v-model="app.showNotification" color="teal"></v-checkbox>
+            <v-checkbox v-model="app().showNotification" color="teal"></v-checkbox>
           </template>
         </v-list-item>
         <v-list-item title="Dark / Light Theme Toggle" subtitle="Show a theme toggle">
           <template v-slot:prepend>
-            <v-checkbox v-model="app.showThemeToggle" color="teal"></v-checkbox>
+            <v-checkbox v-model="app().showThemeToggle" color="teal"></v-checkbox>
           </template>
         </v-list-item>
 
@@ -148,6 +148,7 @@
       </v-list>
       
       <v-card-actions>
+        <!-- TODO: add a button to reset settings to defaults -->
         <v-spacer></v-spacer>
         <v-btn
           color="teal"
@@ -170,22 +171,8 @@
 </div>
 </template>
 <script setup>
-import { useTimerStore } from '~~/stores/timer'
-import {useAppStore} from '~~/stores/app'
-const timer = useTimerStore()
-const app = useAppStore()
-
-const settings = reactive({
-  timer: {
-    'work': timer.settings['work'].time / 60,
-    'short-break': timer.settings['short-break'].time / 60,
-    'long-break': timer.settings['long-break'].time / 60,
-    'max-sessions': timer.getMaxSessions,
-    autoStart: timer.autoStart
-  },
-  showNotification: app.showNotification,
-  showThemeToggle: app.showThemeToggle,
-})
+import { useTimerStore as timer} from '~~/stores/timer'
+import {useAppStore as app} from '~~/stores/app'
 
 const sliderTicks = reactive({
   workTimer: {
@@ -208,8 +195,8 @@ const state = reactive({
 
 // save settings to localstorage
 const saveSettings = () => {
-  timer.clearTimeRemaining()
-  if(app.showNotification) saveNotification()
+  timer().clearTimeRemaining()
+  if(app().showNotification) saveNotification()
   storeSettings()
   
   state.dialog = false
