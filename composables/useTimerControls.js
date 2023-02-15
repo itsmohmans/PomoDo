@@ -18,6 +18,7 @@ export const useTimerControls = () => {
       const currentSession = timer.settings[timer.currentSession].text
       
       timer.nextSession()
+      if (app.playSessionEndSound) playAlarm()
       const nextSession = timer.settings[timer.currentSession].text
   
       if (app.showNotification) showNotification(currentSession, nextSession)
@@ -49,6 +50,13 @@ export const useTimerControls = () => {
     })
     if (isSupported.value)
       show()
+  }
+
+  const playAlarm = async () => {
+    // I want the audio to be dynamically imported, to to make it possible to change it later
+    const audio = await import(`../assets/sounds/${useAppStore().alarmAudio}`)
+    const alarm = new Audio(audio.default)
+    alarm.play()
   }
   return {
     toggleTimer,

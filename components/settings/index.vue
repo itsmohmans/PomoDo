@@ -126,6 +126,11 @@
             <v-checkbox v-model="app().showThemeToggle" color="teal"></v-checkbox>
           </template>
         </v-list-item>
+        <v-list-item title="Sessions end sound" subtitle="Play alarm sound on session end">
+          <template v-slot:prepend>
+            <v-checkbox v-model="app().playSessionEndSound" color="teal"></v-checkbox>
+          </template>
+        </v-list-item>
 
         <!-- Footer -->
         <v-divider></v-divider>
