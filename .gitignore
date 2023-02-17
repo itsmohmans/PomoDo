@@ -10,3 +10,6 @@ node_modules
 
 # Local Netlify folder
 .netlify
+
+# Vite Plugin PWA dev dist 
+dev-dist
