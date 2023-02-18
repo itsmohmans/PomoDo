@@ -133,7 +133,7 @@
               :color="timer().settings[timer().currentSession].color"
               label="Sounds"
               true-icon="mdi-volume-high"
-              false-icon="mdi-volume-high"
+              false-icon="mdi-volume-off"
             >
             </v-checkbox>
         </v-list-item>
@@ -150,19 +150,28 @@
 
         <!-- Footer -->
         <v-divider></v-divider>
-        <v-footer class="flex flex-column">
-          <div class="w-100 py-1 text-center">
-            Made with ❤️ by Mo Mansour
+        <v-footer class="d-flex flex-column align-center">
+          <div>Made with ❤️ by Mo Mansour</div>
+          <div>
             <v-btn
               icon="mdi-github"
               variant="plain"
               size="medium"
               href="https://github.com/itsmohmans/pomodo"
               target="_blank"
-              class="ml-3"
+            ></v-btn>
+            <v-btn
+              icon="mdi-email"
+              variant="plain"
+              size="medium"
+              href="mailto:mohmans@pm.me?subject=%5BPomoDo%20App%5D"
+              class="ml-2"
             ></v-btn>
           </div>
-          <div class="app-version font-weight-thin text-disabled">
+          <div
+            v-if="useRuntimeConfig().public.APP_VERSION"
+            class="mt-4 font-weight-thin text-disabled"
+          >
             {{ useRuntimeConfig().public.APP_VERSION }}
           </div>
         </v-footer>
@@ -241,5 +250,8 @@ const saveNotification = () => {
 .dialog-bottom-transition-enter-active,
 .dialog-bottom-transition-leave-active {
   transition: transform .1s ease-in-out;
+}
+.v-footer {
+  row-gap: 0.4rem;
 }
 </style>
