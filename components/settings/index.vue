@@ -103,33 +103,49 @@
             </template>
           </v-slider>
         </v-list-item>
-        <v-list-item
-          title="Auto Start Sessions"
-          subtitle="Automatically start the next session when the time for current session is up.">
-          <template v-slot:prepend>
-            <!-- TODO: refactor checkboxes for better accessability -->
-            <v-checkbox v-model="timer().autoStart" :color="timer().settings[timer().currentSession].color"></v-checkbox>
-          </template>
+        <v-list-item>
+            <v-checkbox
+              v-model="timer().autoStart"
+              :color="timer().settings[timer().currentSession].color"
+              label="Auto Start Sessions"
+              true-icon="mdi-timer-play-outline"
+              false-icon="mdi-timer-play-outline"
+            ></v-checkbox>
         </v-list-item>
       
         <v-divider></v-divider>
 
       <!-- General Settings -->
         <v-list-subheader>General Settings</v-list-subheader>
-        <v-list-item title="Notifications" subtitle="Show notification when a session ends">
-          <template v-slot:prepend>
-            <v-checkbox v-model="app().showNotification" :color="timer().settings[timer().currentSession].color"></v-checkbox>
-          </template>
+        <v-list-item>
+            <v-checkbox
+              v-model="app().showNotification"
+              :color="timer().settings[timer().currentSession].color"
+              label="Notifications"
+              true-icon="mdi-bell"
+              false-icon="mdi-bell-off"
+            >
+            </v-checkbox>
         </v-list-item>
-        <v-list-item title="Dark / Light Theme Toggle" subtitle="Show a theme toggle">
-          <template v-slot:prepend>
-            <v-checkbox v-model="app().showThemeToggle" :color="timer().settings[timer().currentSession].color"></v-checkbox>
-          </template>
+        <v-list-item>
+            <v-checkbox
+              v-model="app().playSessionEndSound"
+              :color="timer().settings[timer().currentSession].color"
+              label="Sounds"
+              true-icon="mdi-volume-high"
+              false-icon="mdi-volume-high"
+            >
+            </v-checkbox>
         </v-list-item>
-        <v-list-item title="Sessions end sound" subtitle="Play alarm sound on session end">
-          <template v-slot:prepend>
-            <v-checkbox v-model="app().playSessionEndSound" :color="timer().settings[timer().currentSession].color"></v-checkbox>
-          </template>
+        <v-list-item>
+            <v-checkbox
+              v-model="app().showThemeToggle"
+              :color="timer().settings[timer().currentSession].color"
+              label="Show Theme Toggle"
+              true-icon="mdi-theme-light-dark"
+              false-icon="mdi-theme-light-dark"
+            >
+            </v-checkbox>
         </v-list-item>
 
         <!-- Footer -->
