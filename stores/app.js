@@ -2,6 +2,8 @@ export const useAppStore = defineStore('app', {
   state: () => ({
     theme: 'dark',
     showNotification: false,
+    playSessionEndSound: true,
+    alarmAudio: 'bell_1', // ~/assets/sounds/{alarmAudio}.wav
     showThemeToggle: true
   }),
   getters: {

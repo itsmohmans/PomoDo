@@ -1,7 +1,15 @@
 # Nuxt dev/build outputs
 .output
 .nuxt
+dist
 # Node dependencies
 node_modules
 # System files
 *.log
+.env
+
+# Local Netlify folder
+.netlify
+
+# Vite Plugin PWA dev dist 
+dev-dist
