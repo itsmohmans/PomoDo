@@ -29,7 +29,7 @@
             min="5"
             step="5"
             show-ticks
-            color="teal"
+            :color="timer().settings[timer().currentSession].color"
             class="w-100"
             :ticks="sliderTicks.workTimer"
             thumb-label
@@ -57,7 +57,7 @@
             min="0"
             step="5"
             show-ticks
-            color="teal"
+            :color="timer().settings[timer().currentSession].color"
             class="w-100"
             :ticks="sliderTicks.breakTimers"
             thumb-label
@@ -86,7 +86,7 @@
             min="1"
             step="1"
             show-ticks
-            color="teal"
+            :color="timer().settings[timer().currentSession].color"
             class="w-100"
             :ticks="sliderTicks.maxSessions"
             thumb-label
@@ -108,7 +108,7 @@
           subtitle="Automatically start the next session when the time for current session is up.">
           <template v-slot:prepend>
             <!-- TODO: refactor checkboxes for better accessability -->
-            <v-checkbox v-model="timer().autoStart" color="teal"></v-checkbox>
+            <v-checkbox v-model="timer().autoStart" :color="timer().settings[timer().currentSession].color"></v-checkbox>
           </template>
         </v-list-item>
       
@@ -118,17 +118,17 @@
         <v-list-subheader>General Settings</v-list-subheader>
         <v-list-item title="Notifications" subtitle="Show notification when a session ends">
           <template v-slot:prepend>
-            <v-checkbox v-model="app().showNotification" color="teal"></v-checkbox>
+            <v-checkbox v-model="app().showNotification" :color="timer().settings[timer().currentSession].color"></v-checkbox>
           </template>
         </v-list-item>
         <v-list-item title="Dark / Light Theme Toggle" subtitle="Show a theme toggle">
           <template v-slot:prepend>
-            <v-checkbox v-model="app().showThemeToggle" color="teal"></v-checkbox>
+            <v-checkbox v-model="app().showThemeToggle" :color="timer().settings[timer().currentSession].color"></v-checkbox>
           </template>
         </v-list-item>
         <v-list-item title="Sessions end sound" subtitle="Play alarm sound on session end">
           <template v-slot:prepend>
-            <v-checkbox v-model="app().playSessionEndSound" color="teal"></v-checkbox>
+            <v-checkbox v-model="app().playSessionEndSound" :color="timer().settings[timer().currentSession].color"></v-checkbox>
           </template>
         </v-list-item>
 
@@ -156,7 +156,7 @@
         <!-- TODO: add a button to reset settings to defaults -->
         <v-spacer></v-spacer>
         <v-btn
-          color="teal"
+          :color="timer().settings[timer().currentSession].color"
           variant="text"
           @click="saveSettings"
         >
@@ -169,7 +169,7 @@
     v-model="state.snackbar"
     timeout="1500"
     @click="state.snackbar = false"
-    color="teal"
+    :color="timer().settings[timer().currentSession].color"
   >
     Settings saved successfully
   </v-snackbar>

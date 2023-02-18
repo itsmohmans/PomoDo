@@ -4,7 +4,7 @@
       variant="outlined"
       size="small"
       icon
-      color="teal"
+      :color="timer().settings[timer().currentSession].color"
       @click="clearTimer"
     >
       <v-icon>mdi-restart</v-icon>
@@ -12,11 +12,11 @@
     <v-btn
       elevation="4"
       size="x-large" width="144"
-      color="teal"
-      :variant="timer.isStarted ? 'outlined' : 'elevated'"
+      :color="timer().settings[timer().currentSession].color"
+      :variant="timer().isStarted ? 'outlined' : 'elevated'"
       @click="toggleTimer"
     >
-      {{timer.isStarted ? 'Stop' : 'Start'}}
+      {{timer().isStarted ? 'Stop' : 'Start'}}
       <v-tooltip
         v-if="!mobile"
         activator="parent"
@@ -30,19 +30,18 @@
       variant="outlined"
       size="small"
       icon
-      color="teal"
-      @click="timer.nextSession()"
+      :color="timer().settings[timer().currentSession].color"
+      @click="timer().nextSession()"
     >
       <v-icon>mdi-skip-next</v-icon>
     </v-btn>
   </div>
 </template>
 <script setup>
-import { useTimerStore } from '/stores/timer';
+import { useTimerStore as timer } from '/stores/timer';
 import { useDisplay } from 'vuetify'
 
 const { mobile } = useDisplay()
-const timer = useTimerStore()
 const {toggleTimer, clearTimer} = useTimerControls()
 
 // Keyboard shortcut to toggle timer (spacebar)

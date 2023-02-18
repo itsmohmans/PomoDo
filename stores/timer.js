@@ -4,15 +4,18 @@ export const useTimerStore = defineStore('timer', {
     settings: {
       'work': {
         text: 'Work',
-        time: 25 // in minutes
+        time: 25, // in minutes
+        color: 'teal'
       },
       'short-break': {
         text: 'Short Break',
-        time: 5
+        time: 5,
+        color: 'cyan'
       },
       'long-break': {
         text: 'Long Break',
-        time: 15
+        time: 15,
+        color: 'light-blue'
       }
     },
     timeRemaining: 25*60, // in seconds
