@@ -1,42 +1,69 @@
-# Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# PomoDo
 
-## Setup
+This is a simple material-design pomodoro timer to help you focus.
 
-Make sure to install the dependencies:
+![Nuxtjs](https://img.shields.io/badge/Nuxt-002E3B?style=for-the-badge&logo=nuxtdotjs&logoColor=#00DC82)
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
+![Vuetify](https://img.shields.io/badge/Vuetify-1867C0?style=for-the-badge&logo=vuetify&logoColor=AEDDFF)
 
-```bash
-# yarn
-yarn install
+## Features
 
-# npm
-npm install
+- Session times can be customized
+- Browser notifications
+- Alarm sound when a session end
+- Dark / Light Themes
+- Progressive Web App (can be installed as an app from the browser)
 
-# pnpm
-pnpm install
-```
+<details>
+<summary style='font-size: 21px'> Screenshots </summary>
 
-## Development Server
+  ![timer: dark theme](/screenshots/timer-dark.png)
+  ![timer: light theme](/screenshots/timer-light.png)
+  ![settings](/screenshots/settings.png)
+</details>
 
-Start the development server on http://localhost:3000
+## Demo
 
-```bash
-npm run dev
-```
+This is development demo:    
+https://pomodo.dev.momansour.me/
 
-## Production
+## Run Locally
 
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
+Clone the project
 
 ```bash
-npm run preview
+  git clone https://github.com/itsmohmans/PomoDo.git
+
+  cd PomoDo
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Install dependencies (node v18)
+
+```bash
+  npm install
+```
+
+Run the app on http://localhost:3000
+
+```bash
+  npm run dev
+```
+
+## Roadmap
+
+- Statistics
+
+- Simple tasks / to-do list under the timer
+
+- Import / Export data
+
+- More sounds and colors options
+
+- Offline support in PWA mode
+
+## Contributing
+
+Contributions are always welcome!
+
+Feel free to [open an issue](https://github.com/itsmohmans/PomoDo/issues/new) if you found a bug or want to recommend a feature. Also, PRs are welcome.
