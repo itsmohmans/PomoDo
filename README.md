@@ -25,7 +25,7 @@ This is a simple material-design pomodoro timer to help you focus.
 
 ## Demo
 
-You can try PomoDo here   
+You can try PomoDo here:   
 https://pomodo.momansour.me/
 
 ## Run Locally
