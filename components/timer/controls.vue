@@ -1,13 +1,14 @@
 <template>
   <div class="controls-container">
     <v-btn
+      :disabled="!(timer().isStarted || timer().getTimeRemaining !== timer().settings[timer().currentSession].time * 60)"
       variant="outlined"
       size="small"
       icon
       :color="timer().settings[timer().currentSession].color"
       @click="clearTimer"
     >
-      <v-icon>mdi-restart</v-icon>
+      <v-icon>mdi-stop</v-icon>
     </v-btn>
     <v-btn
       elevation="4"
@@ -16,7 +17,7 @@
       :variant="timer().isStarted ? 'outlined' : 'elevated'"
       @click="toggleTimer"
     >
-      {{timer().isStarted ? 'Stop' : 'Start'}}
+      {{timer().isStarted ? 'Pause' : 'Start'}}
       <v-tooltip
         v-if="!mobile"
         activator="parent"
