@@ -23,7 +23,7 @@ const getSeconds = () => timer().getTimeRemaining - 60 * getMinutes()
 
 useHead(() => {
   return {
-    titleTemplate: `${timer().settings[timer().getCurrentSession].text} - ${getMinutes()} Mins left | PomoDo`
+    titleTemplate: timer().isStarted ? `${timer().settings[timer().getCurrentSession].text} - ${getMinutes()} Mins left | PomoDo` : 'PomoDo'
   }
 })
 
