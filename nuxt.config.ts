@@ -1,5 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: 'PomoDo ',
+      meta: [
+        { name: 'description', content: 'PomoDo is a simple material-design pomodoro timer to help you focus.' }
+      ]
+    }
+  },
   css: [
     "vuetify/styles/main.sass",
     '@mdi/font/css/materialdesignicons.css'
