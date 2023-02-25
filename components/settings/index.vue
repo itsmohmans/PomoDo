@@ -183,7 +183,7 @@
         <v-btn
           :color="timer().settings[timer().currentSession].color"
           variant="text"
-          @click="saveSettings"
+          @click="state.dialog = false"
         >
           Close
         </v-btn>
@@ -232,6 +232,15 @@ const saveSettings = () => {
   state.dialog = false
   state.snackbar = true
 }
+
+watch (
+  () => state.dialog,
+  (dialog) => {
+    if (!dialog) { // if dialog is closed
+      saveSettings()
+    }
+  }
+)
 
 // get notification permission from the browser
 const saveNotification = () => {
