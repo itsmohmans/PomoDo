@@ -41,7 +41,8 @@
 </template>
 <script setup>
 import { useTimerStore as timer, useTimerControls } from '/stores/timer';
-import { useDisplay, onBeforeUnmount } from 'vue';
+import { useDisplay, onBeforeUnmount } from 'vue/dist/vue.esm-bundler';
+
 const { mobile } = useDisplay();
 const { toggleTimer, clearTimer } = useTimerControls();
 
