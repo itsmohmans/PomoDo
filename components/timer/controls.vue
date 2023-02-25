@@ -1,23 +1,24 @@
 <template>
   <div class="controls-container">
     <v-btn
-      :disabled="!(timer().isStarted || timer().getTimeRemaining !== timer().settings[timer().currentSession].time * 60)"
+      :disabled="!(timer.isStarted || timer.getTimeRemaining !== timer.settings[timer.currentSession].time * 60)"
       variant="outlined"
       size="small"
       icon
-      :color="timer().settings[timer().currentSession].color"
+      :color="timer.settings[timer.currentSession].color"
       @click="clearTimer"
     >
       <v-icon>mdi-stop</v-icon>
     </v-btn>
     <v-btn
       elevation="4"
-      size="x-large" width="144"
-      :color="timer().settings[timer().currentSession].color"
-      :variant="timer().isStarted ? 'outlined' : 'elevated'"
+      size="x-large"
+      width="144"
+      :color="timer.settings[timer.currentSession].color"
+      :variant="timer.isStarted ? 'outlined' : 'elevated'"
       @click="toggleTimer"
     >
-      {{timer().isStarted ? 'Pause' : 'Start'}}
+      {{timer.isStarted ? 'Pause' : 'Start'}}
       <v-tooltip
         v-if="!mobile"
         activator="parent"
@@ -31,28 +32,38 @@
       variant="outlined"
       size="small"
       icon
-      :color="timer().settings[timer().currentSession].color"
-      @click="timer().nextSession()"
+      :color="timer.settings[timer.currentSession].color"
+      @click="timer.nextSession()"
     >
       <v-icon>mdi-skip-next</v-icon>
     </v-btn>
   </div>
 </template>
 <script setup>
-import { useTimerStore as timer } from '/stores/timer';
-import { useDisplay } from 'vuetify'
-
-const { mobile } = useDisplay()
-const {toggleTimer, clearTimer} = useTimerControls()
+import { useTimerStore as timer, useTimerControls } from '/stores/timer';
+import { useDisplay, onBeforeUnmount } from 'vue';
+const { mobile } = useDisplay();
+const { toggleTimer, clearTimer } = useTimerControls();
 
 // Keyboard shortcut to toggle timer (spacebar)
-onKeyStroke(" ", (e) => {
-  e.preventDefault()
-  toggleTimer()
-})
-
-onBeforeUnmount(clearTimer())
+const onKeyStroke = (key, callback) => {
+const handleKeyDown = (e) => {
+if (e.code === key) {
+callback(e);
+}
+};
+window.addEventListener('keydown', handleKeyDown);
+return () => {
+window.removeEventListener('keydown', handleKeyDown);
+};
+};
+onKeyStroke("Space", (e) => {
+e.preventDefault();
+toggleTimer();
+});
+onBeforeUnmount(clearTimer);
 </script>
+
 <style scoped>
 .controls-container {
   display: flex;
