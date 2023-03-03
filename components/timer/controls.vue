@@ -50,8 +50,7 @@ onKeyStroke(" ", (e) => {
   e.preventDefault()
   toggleTimer()
 })
-
-onBeforeUnmount(clearTimer())
+onBeforeUnmount(() => clearTimer())
 </script>
 <style scoped>
 .controls-container {
