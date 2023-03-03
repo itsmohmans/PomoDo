@@ -11,6 +11,10 @@
 </template>
 <script setup>
 import {useAppStore} from '/stores/app'
+
+onMounted(() => {
+  getSettings()
+})
 </script>
 <style>
 /* make scrollbar invisible on chromium */
