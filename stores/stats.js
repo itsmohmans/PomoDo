@@ -56,6 +56,12 @@ export const useStatsStore = defineStore('stats', {
   }),
   getters: {
     /**
+     * get all labels
+     * @param {*} state is current state
+     * @returns an array of labels
+     */
+    getLabels: (state) => Object.keys(state.stats),
+    /**
      * get dates by each label
      * @param {*} state is current state
      * @returns an object where keys are each label, 
@@ -104,7 +110,7 @@ export const useStatsStore = defineStore('stats', {
           }
         }, {})
         return colorByLabel
-    }
+    },
   },
   actions: {
     addNewLabel(label) {
