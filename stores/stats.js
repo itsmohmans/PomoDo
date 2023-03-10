@@ -2,11 +2,6 @@
 export const useStatsStore = defineStore('stats', {
   state: () => ({
     stats: {
-      // Each property is a label for the set of sessions
-      // Each set of sessions is an array of objects
-      // consisting of date and minutes for each sessoin
-
-      // FIXME: apply new changes (the new labels obj structure) to the getters
       'label 1': {
         color: 'some color',
         sessions: [
@@ -32,7 +27,9 @@ export const useStatsStore = defineStore('stats', {
           },
         ],
       },
-        'label 2': [
+      'label 2': {
+        color: 'another color',
+        sessions:[
           {
             date: 'date 2.0',
             minutes: 99
@@ -53,38 +50,61 @@ export const useStatsStore = defineStore('stats', {
             date: 'date 2.4',
             minutes: 44
           },
-        ],
+        ]
+      },
     }
   }),
   getters: {
-    // get dates by each label
+    /**
+     * get dates by each label
+     * @param {*} state is current state
+     * @returns an object where keys are each label, 
+     * and value for each key is an array of dates
+     */
     getDates: (state) => {
-      const datesByLabel = Object.entries(state.stats).reduce((result, [label, stats]) => {
-        const dates = stats.map(session => session.date);
-        return {
-          ...result,
-          [label]: {
-            dates,
-          },
-        };
-      }, {});
-
-      return datesByLabel;
+      const datesByLabel = Object.entries(state.stats)
+        .reduce((result, [label, data]) => {
+          const dates = data.sessions.map(session => session.date)
+          return {
+            ...result,
+            [label]: dates
+          }
+        }, {})
+        return datesByLabel
     },
-    // get miuntes by each label
+    /**
+     * get miuntes by each label
+     * @param {*} state is current state
+     * @returns an object where keys are each label, 
+     * and value for each key is an array of minutes
+     */
     getMinutes: (state) => {
-      const minsByLabel = Object.entries(state.stats).reduce((result, [label, stats]) => {
-        const minutes = stats.map(session => session.minutes);
-        return {
-          ...result,
-          [label]: {
-            minutes,
-          },
-        };
-      }, {});
-
-      return minsByLabel;
+      const minsByLabel = Object.entries(state.stats)
+        .reduce((result, [label, data]) => {
+          const minutes = data.sessions.map(session => session.minutes)
+          return {
+            ...result,
+            [label]: minutes
+          }
+        }, {})
+        return minsByLabel
     },
+    /**
+     * get color for each label
+     * @param {*} state is current state
+     * @returns an object where keys are each label, 
+     * and value for each key is the color
+     */
+    getColors: (state) => {
+      const colorByLabel = Object.entries(state.stats)
+        .reduce((result, [label, data]) => {
+          return {
+            ...result,
+            [label]: data.color
+          }
+        }, {})
+        return colorByLabel
+    }
   },
   actions: {
     addNewLabel(label) {
