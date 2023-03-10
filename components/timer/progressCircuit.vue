@@ -10,9 +10,12 @@
     >
     {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
     </v-progress-circular>
+    
     <div class="session-info">
-      <p>{{ timer().settings[timer().getCurrentSession].text }}</p>
-      <p>Session {{ timer().getCurrentSessionNumber }} / {{ timer().getMaxSessions }}</p>
+      <timer-label />
+      <div>
+        {{ timer().settings[timer().getCurrentSession].text }} <b>·</b> {{ timer().getCurrentSessionNumber }} / {{ timer().getMaxSessions }}
+      </div>
     </div>
   </div>
 </template>
@@ -34,5 +37,8 @@ useHead(() => {
 }
 .session-info {
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.1rem;
 }
 </style>

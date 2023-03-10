@@ -1,6 +1,11 @@
 <template>
   <v-toolbar :collapse="isFullscreen" density="compact" color="background">
     <Settings v-if="!isFullscreen" />
+    <!--
+      TODO:
+      Add a confirmation to stop timer whenever
+      the user tries to open stats and the timer is running
+    -->
     <v-btn
       icon
       :to="useRoute().name === 'stats' ? '/' : '/stats'"
