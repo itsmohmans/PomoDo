@@ -113,11 +113,31 @@ export const useStatsStore = defineStore('stats', {
     },
   },
   actions: {
-    addNewLabel(label) {
-      // push a label object to this.session
+    addNewLabel(label, color) {
+      // if the label does not exist
+      if (!this.getLabels.find(el => el === label))
+        this.stats[label] = {
+          color: color,
+          sessions: []
+        }
+      else console.error(`${label} is already a label`)
     },
-    addNewSession(label, time, date) {
-      // push new session obj to this.session[label]
-    }
+    addNewSession(label, minutes, date) {
+      if (this.getLabels.find(el => el === label)) {
+        return this.stats[label].sessions.push({
+          minutes: minutes,
+          date: date
+        })
+      } else { // if the label does not exist, create new one
+        this.addNewLabel(label, '#fff') // TODO: make it a random color
+        this.addNewSession(label, minutes, date)
+      }
+    },
+    removeLabel(label) {
+      const index = this.getLabels.indexOf(label);
+      if (index !== -1) {
+        delete this.stats[label];
+      }
+    },
   }
 })
