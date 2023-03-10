@@ -1,8 +1,13 @@
 import { useTimerStore } from '/stores/timer';
 import { useAppStore } from '~~/stores/app';
+import { useStatsStore } from '~~/stores/stats'
 
 export const useTimerControls = () => {
-  const timer = useTimerStore(), app = useAppStore()
+  const timer = useTimerStore(), 
+    app = useAppStore(),
+    stats = useStatsStore()
+
+  const { $dayjs } = useNuxtApp()
   const interval = ref({})
 
   const toggleTimer = () => {
@@ -15,13 +20,22 @@ export const useTimerControls = () => {
 
   const startTimer = () => {
     if (timer.getTimeRemaining <= 0) {
-      const currentSession = timer.settings[timer.currentSession].text
+      const currentSession = timer.settings[timer.currentSession]
       
+      // TODO: make it save the stats even if there isn't any label
+      // save current session to stats
+      if (timer.currentLabel !== 'No label' && currentSession.text === 'Work') {
+        stats.addNewSession(
+          timer.currentLabel,
+          currentSession.time,
+          $dayjs()
+        )
+      }
       timer.nextSession()
       if (app.playSessionEndSound) playAlarm()
-      const nextSession = timer.settings[timer.currentSession].text
+      const nextSession = timer.settings[timer.currentSession]
   
-      if (app.showNotification) showNotification(currentSession, nextSession)
+      if (app.showNotification) showNotification(currentSession.text, nextSession.text)
       
       if (timer.autoStart)
         return
