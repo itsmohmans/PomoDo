@@ -22,7 +22,8 @@ export const useTimerStore = defineStore('timer', {
     currentSession: 'work',
     currentSessionNumber: 1,
     maxSessions: 4,   // the number of sessions before a long break
-    autoStart: true
+    autoStart: true,
+    currentLabel: 'default'
   }),
   getters: {
     isStarted: (state) => state.started,
