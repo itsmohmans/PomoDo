@@ -7,7 +7,6 @@ export const useTimerControls = () => {
     app = useAppStore(),
     stats = useStatsStore()
 
-  const { $dayjs } = useNuxtApp()
   const interval = ref({})
 
   const toggleTimer = () => {
@@ -25,10 +24,17 @@ export const useTimerControls = () => {
       // TODO: make it save the stats even if there isn't any label
       // save current session to stats
       if (timer.currentLabel !== 'No label' && currentSession.text === 'Work') {
+        const date = new Date()
         stats.addNewSession(
           timer.currentLabel,
           currentSession.time,
-          $dayjs()
+          {
+            day: date.getDate(),
+            weekDay: date.getDay(),
+            month: date.getMonth(),
+            year: date.getFullYear()
+          }
+          
         )
       }
       timer.nextSession()

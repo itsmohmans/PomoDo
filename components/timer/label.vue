@@ -15,7 +15,7 @@
       v-model="state.dialog"
       scrollable
       width="auto"
-      :scrim="false"
+      scrim="background"
       close-on-back
       retain-focus
     >

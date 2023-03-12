@@ -9,7 +9,7 @@ const storageKeys = {
 export const storeSettings = () => {
   const timerSettings = useTimerStore().$state
   const appSettings = useAppStore().$state
-  const stats = useStatsStore().stats
+  const stats = useStatsStore().$state
 
   localStorage.setItem(storageKeys.timer, JSON.stringify(timerSettings))
   localStorage.setItem(storageKeys.app, JSON.stringify(appSettings))
@@ -30,7 +30,7 @@ export const getSettings = () => {
   if (storedSettings.app){
     useAppStore().$state = JSON.parse(storedSettings.app)
   }
-  if (storeSettings.stats) {
-    useStatsStore().stats = JSON.parse(storedSettings.stats)
+  if (storedSettings.stats) {
+    useStatsStore().$state = JSON.parse(storedSettings.stats)
   }
 }
