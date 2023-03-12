@@ -111,6 +111,24 @@ export const useStatsStore = defineStore('stats', {
         }, {})
         return colorByLabel
     },
+    /**
+     * get color for each label
+     * @param {*} state is current state
+     * @returns an array of unique days of sessions.
+     * FIXME: the below logic doesn't save add minutes of
+     * sessions of the same day together
+     */
+    // TODO: make this getter to return an array for each date and minutes
+    getUniqueDates: (state) => {
+      const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+      const uniqueDays = Object.values(state.getDates)
+        .reduce((datesArr, date) => datesArr.concat(date), [])
+        .map(date => date.weekDay)
+        .filter((day, idx, arr) => day !== arr[idx + 1])
+        .sort()
+        .map(day => daysOfWeek[day])
+      return uniqueDays
+    },
   },
   actions: {
     addNewLabel(label, color) {
@@ -139,5 +157,6 @@ export const useStatsStore = defineStore('stats', {
         delete this.stats[label];
       }
     },
+    // TODO: add a change label color and name actions
   }
 })

@@ -1,6 +1,9 @@
 <template>
   <div class="stats-container">
-    <!-- <line-chart class="line-chart" :data="data" :options="options"/> -->
+    <line-chart class="chart mins-days"
+      :data="minutesDaysCharts.data"
+      :options="minutesDaysCharts.options"
+    />
     <pie-chart
       class="chart mins-labels"
       :data="minutesLabelCharts.data"
@@ -17,10 +20,13 @@
 import { useStatsStore as stats } from '~~/stores/stats'
 import {useAppStore as app} from '~~/stores/app'
 
-const { $dayjs } = useNuxtApp()
-
 const labels = stats().getLabels
-const dates = stats().getDates
+const colors = Object.values(stats().getColors)
+const days = stats().getUniqueDates
+// FIXME: Merge minutes of the same day together
+const minutesPerDate = Object.values(stats().getMinutes)
+  .reduce((minsArr, mins) => Array(...minsArr).concat(mins.map(min => min/60)), [])
+
 const minutes = Object.values(stats().getMinutes)
   .map(arr => arr.reduce((total, mins) => total + mins/60, 0));
 const colors = Object.values(stats().getColors)
@@ -49,7 +55,7 @@ const minutesLabelCharts = reactive({
         },
         title: {
           display: true,
-          text: 'Minutes per label',
+          text: 'Work Time / Label',
         }
       }
     },
@@ -70,28 +76,37 @@ const minutesLabelCharts = reactive({
 })
 const minutesDaysCharts = reactive({
   data: {
-    labels: labels,
+    labels: days,
     datasets: [
       {
         label: 'Hours',
         backgroundColor: colors,
-        data: minutes,
+        data: minutesPerDate,
+        tension: 0.4,
       },
     ]
   },
   options: {
+    borderColor: '#a1a1a1',
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: true,
-        labels: {
-          color: app().getTheme === 'dark' ? '#fff' : '#000'
-        }
+        display: false
       },
       title: {
         display: true,
-        text: 'Minutes per label',
+        text: 'Work Time / Day',
+      },
+    },
+    elements: {
+      point: {
+        radius: 6,
+        borderWidth: 1,
+        hitRadius: 18,
+      },
+      line: {
+        fill: true,
       }
     }
   }
@@ -108,16 +123,13 @@ const minutesDaysCharts = reactive({
   column-gap: 2rem;
 }
 .stats-container * {
-  max-width: 400px;
-  max-height: 200px;
-  margin: 0
-}
-.stats-container .line-chart {
-  max-width: 400px;
+  max-width: 600px;
+  max-height: 400px;
+  margin: 1rem
 }
 .chart.mins-labels {
   padding: 10px;
-  border: 1px solid grey;
-  border-radius: 50px;
+  /* border: 1px solid grey; */
+  border-radius: 40px;
 }
 </style>
