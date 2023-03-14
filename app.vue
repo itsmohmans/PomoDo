@@ -11,6 +11,10 @@
 </template>
 <script setup>
 import {useAppStore} from '/stores/app'
+import { useWakeLock } from '@vueuse/core'
+
+const { isSupported, isActive, request, release } = useWakeLock()
+request();
 </script>
 <style>
 /* make scrollbar invisible on chromium */
