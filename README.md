@@ -52,7 +52,7 @@ Run the app on http://localhost:3000
 
 ## Roadmap
 
-- Statistics
+- Statistics (WIP in [feat/stats branch](https://github.com/itsmohmans/PomoDo/tree/feat/stats))
 
 - Simple tasks / to-do list under the timer
 
