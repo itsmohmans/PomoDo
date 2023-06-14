@@ -17,31 +17,29 @@
         </v-tooltip>
       </v-btn>
     </template>
-    <v-card>      
+    <v-card>
       <!-- Timer Settings -->
       <v-list class="px-2 px-md-16">
         <v-list-subheader>Timer Settings</v-list-subheader>
         <!-- Work Time -->
         <v-list-item title="Work Sessions">
           <v-slider
-            v-model="timer().settings.timer['work'].time"
-            max="60"
-            min="5"
-            step="5"
-            show-ticks
+            v-model="settings.timer.work"
+            min="5" max="60" step="5"
+            show-ticks thumb-label
             :color="timer().getCurrentColor"
             class="w-100"
             :ticks="sliderTicks.workTimer"
-            thumb-label
+            :rules="rules.workRules"
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer().settings.timer['work'].time"
-                hide-details
-                single-line
+                v-model="settings.timer.work"
+                hide-details single-line
                 density="compact"
                 type="number"
                 style="width: 70px"
+                min="5" max="60"
               ></v-text-field>
             </template>
           </v-slider>
@@ -52,24 +50,22 @@
           :key="i"
           :title="timer().settings.timer[value].text">
           <v-slider
-            v-model="timer().settings.timer[value].time"
-            max="60"
-            min="0"
-            step="5"
-            show-ticks
+            v-model="settings.timer[value]"
+            min="0" max="60" step="5"
+            show-ticks thumb-label
             :color="timer().getCurrentColor"
             class="w-100"
             :ticks="sliderTicks.breakTimers"
-            thumb-label
+            :rules="rules.breakRules"
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer().settings.timer[value].time"
-                hide-details
-                single-line
+                v-model="settings.timer[value]"
+                hide-details single-line
                 density="compact"
                 type="number"
                 style="width: 70px"
+                min="0" max="60"
               ></v-text-field>
             </template>
           </v-slider>
@@ -81,24 +77,22 @@
           subtitle="The number of work sessions before a long break"
           >
           <v-slider
-            v-model="timer().settings.maxSessions"
-            max="10"
-            min="1"
-            step="1"
-            show-ticks
+            v-model="settings.maxSessions"
+            min="1" max="10" step="1"
+            show-ticks thumb-label
             :color="timer().getCurrentColor"
             class="w-100"
             :ticks="sliderTicks.maxSessions"
-            thumb-label
+            :rules="rules.maxSessionsRules"
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer().settings.maxSessions"
-                hide-details
-                single-line
+                v-model="settings.maxSessions"
+                hide-details single-line
                 density="compact"
                 type="number"
                 style="width: 70px"
+                min="1" max="10"
               ></v-text-field>
             </template>
           </v-slider>
@@ -118,34 +112,34 @@
       <!-- General Settings -->
         <v-list-subheader>General Settings</v-list-subheader>
         <v-list-item>
-            <v-checkbox
-              v-model="state.notificationsEnabled"
-              :color="timer().getCurrentColor"
-              label="Notifications"
-              true-icon="mdi-bell"
-              false-icon="mdi-bell-off"
-            >
-            </v-checkbox>
+          <v-checkbox
+            v-model="settings.notificationsEnabled"
+            :color="timer().getCurrentColor"
+            label="Notifications"
+            true-icon="mdi-bell"
+            false-icon="mdi-bell-off"
+          >
+          </v-checkbox>
         </v-list-item>
         <v-list-item>
-            <v-checkbox
-              v-model="app().playSessionEndSound"
-              :color="timer().getCurrentColor"
-              label="Sounds"
-              true-icon="mdi-volume-high"
-              false-icon="mdi-volume-off"
-            >
-            </v-checkbox>
+          <v-checkbox
+            v-model="app().playSessionEndSound"
+            :color="timer().getCurrentColor"
+            label="Sounds"
+            true-icon="mdi-volume-high"
+            false-icon="mdi-volume-off"
+          >
+          </v-checkbox>
         </v-list-item>
         <v-list-item>
-            <v-checkbox
-              v-model="app().showThemeToggle"
-              :color="timer().getCurrentColor"
-              label="Show Theme Toggle"
-              true-icon="mdi-theme-light-dark"
-              false-icon="mdi-theme-light-dark"
-            >
-            </v-checkbox>
+          <v-checkbox
+            v-model="app().showThemeToggle"
+            :color="timer().getCurrentColor"
+            label="Show Theme Toggle"
+            true-icon="mdi-theme-light-dark"
+            false-icon="mdi-theme-light-dark"
+          >
+          </v-checkbox>
         </v-list-item>
 
         <!-- Footer -->
@@ -187,7 +181,7 @@
         >
           Close
         </v-btn>
-        </v-card-actions>
+      </v-card-actions>
     </v-card>
   </v-dialog>
   <v-snackbar
@@ -218,15 +212,68 @@ const sliderTicks = reactive({
     10: '10'
   }
 })
+// only the settings that need validation
+const settings = reactive({
+  timer: {
+    'work': 25,
+    'short-break': 5,
+    'long-break': 15,
+  },
+  maxSessions: 4,
+  notificationsEnabled: false,
+})
 const state = reactive({
   dialog: false,
   snackbar: false,
-  notificationsEnabled: false,
+})
+
+// rules for validating inputs
+const rules = reactive({
+  workRules: [
+    (value) => {
+      if (value >= 5 && value <= 60) return true
+
+      if (value <= 0) return "Are you kidding me? if you don't wanna work then just go find something better to do than playing with my settings."
+      if (value < 5) return "Do you want to work for less than 5 mins?! You can do better."
+      return "Don't be so hard on yourself, work for an hour or less before taking a break."
+    }
+  ],
+  breakRules: [
+    (value) => {
+      if (value >= 0 && value <= 60) return true
+
+      if (value < 0) return "How tf would you take a negative break time you moron?"
+      return "That's too much time for a break, stop wasting your time."
+    }
+  ],
+  maxSessionsRules: [
+    (value) => {
+      if (value >= 1) return true
+
+      return "Max sessions can't be less than one!"
+    }
+  ],
 })
 
 // save settings to localstorage
 const saveSettings = () => {
+
   saveNotification()
+
+  // validate user inputs before saving
+  if (rules.workRules[0](settings.timer.work) === true) {
+    timer().settings.timer.work.time = settings.timer.work
+  }
+  if (rules.breakRules[0](settings.timer['short-break']) === true) {
+    timer().settings.timer['short-break'].time = settings.timer['short-break']
+  }
+  if (rules.breakRules[0](settings.timer['long-break']) === true) {
+    timer().settings.timer['long-break'].time = settings.timer['long-break']
+  }
+  if (rules.maxSessionsRules[0](settings.maxSessions) === true) {
+    timer().settings.maxSessions = settings.maxSessions
+  }
+
   storeSettings()
   
   state.dialog = false
@@ -240,7 +287,12 @@ watch (
       saveSettings()
     }
     else {
-      state.notificationsEnabled = app().showNotification
+      // retrieve settings from state when dialog is opened
+      settings.notificationsEnabled = app().showNotification
+      settings.maxSessions = timer().settings.maxSessions
+      for (let session of Object.keys(settings.timer)) {
+        settings.timer[session] = timer().settings.timer[session].time
+      }
     }
   }
 )
@@ -251,12 +303,12 @@ const saveNotification = () => {
       title: "Notifications enabled.",
   })
   if (isSupported.value) {
-    if(!app().showNotification && state.notificationsEnabled)
+    if(!app().showNotification && settings.notificationsEnabled)
       show()
   } else {
     console.error('Your browser does not support notifications.')
   }
-  app().showNotification = state.notificationsEnabled
+  app().showNotification = settings.notificationsEnabled
 }
 
 </script>
