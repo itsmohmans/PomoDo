@@ -119,7 +119,7 @@
         <v-list-subheader>General Settings</v-list-subheader>
         <v-list-item>
             <v-checkbox
-              v-model="app().showNotification"
+              v-model="state.notificationsEnabled"
               :color="timer().getCurrentColor"
               label="Notifications"
               true-icon="mdi-bell"
@@ -220,13 +220,13 @@ const sliderTicks = reactive({
 })
 const state = reactive({
   dialog: false,
-  snackbar: false
+  snackbar: false,
+  notificationsEnabled: false,
 })
 
 // save settings to localstorage
 const saveSettings = () => {
-  timer().clearTimeRemaining()
-  if(app().showNotification) saveNotification()
+  saveNotification()
   storeSettings()
   
   state.dialog = false
@@ -239,6 +239,9 @@ watch (
     if (!dialog) { // if dialog is closed
       saveSettings()
     }
+    else {
+      state.notificationsEnabled = app().showNotification
+    }
   }
 )
 
@@ -248,10 +251,12 @@ const saveNotification = () => {
       title: "Notifications enabled.",
   })
   if (isSupported.value) {
-    show()
+    if(!app().showNotification && state.notificationsEnabled)
+      show()
   } else {
     console.error('Your browser does not support notifications.')
   }
+  app().showNotification = state.notificationsEnabled
 }
 
 </script>
