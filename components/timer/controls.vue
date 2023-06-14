@@ -1,7 +1,7 @@
 <template>
   <div class="controls-container">
     <v-btn
-      :disabled="!(timer().isStarted || timer().getTimeRemaining !== timer().settings.timer[timer().currentSession].time * 60)"
+      :disabled="!(timer().isStarted || timer().getTimeRemaining !== timer().getSessionTime * 60)"
       variant="outlined"
       size="small"
       icon
