@@ -164,7 +164,7 @@
               icon="mdi-email"
               variant="plain"
               size="medium"
-              href="mailto:mohmans@pm.me?subject=%5BPomoDo%20App%5D"
+              href="mailto:mohmans+pomodo@pm.me?subject=%5BPomoDo%20App%5D"
               class="ml-2"
             ></v-btn>
           </div>
