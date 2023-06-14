@@ -14,6 +14,7 @@ This is a simple material-design pomodoro timer to help you focus.
 - Alarm sound when a session end
 - Dark / Light Themes
 - Progressive Web App (can be installed as an app from the browser)
+- Privacy-friendly: Settings (and any upcoming user data such as stats) are saved locally in the browser.
 
 <details>
 <summary style='font-size: 21px'> Screenshots </summary>
