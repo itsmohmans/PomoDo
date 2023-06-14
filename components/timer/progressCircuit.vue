@@ -6,7 +6,7 @@
       :width="3"
       class="progress"
       :model-value="(timer().getTimeRemaining * 100) / (timer().getSessionTime * 60)"
-      :color="timer().settings.timer[timer().currentSession].color"
+      :color="timer().getCurrentColor"
     >
     {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
     </v-progress-circular>

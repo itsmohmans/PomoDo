@@ -34,6 +34,7 @@ export const useTimerStore = defineStore('timer', {
     isWork: (state) => state.settings.timer[state.currentSession] === 'work',
     getCurrentSessionNumber: (state) => state.currentSessionNumber,
     getMaxSessions: (state) => state.settings.maxSessions,
+    getCurrentColor: (state) => state.settings.timer[state.currentSession].color
   },
   actions: {
     toggleTimer() {

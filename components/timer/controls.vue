@@ -5,7 +5,7 @@
       variant="outlined"
       size="small"
       icon
-      :color="timer().settings.timer[timer().currentSession].color"
+      :color="timer().getCurrentColor"
       @click="clearTimer"
     >
       <v-icon>mdi-stop</v-icon>
@@ -13,7 +13,7 @@
     <v-btn
       elevation="4"
       size="x-large" width="144"
-      :color="timer().settings.timer[timer().currentSession].color"
+      :color="timer().getCurrentColor"
       :variant="timer().isStarted ? 'outlined' : 'elevated'"
       @click="toggleTimer"
     >
@@ -31,7 +31,7 @@
       variant="outlined"
       size="small"
       icon
-      :color="timer().settings.timer[timer().currentSession].color"
+      :color="timer().getCurrentColor"
       @click="timer().nextSession()"
     >
       <v-icon>mdi-skip-next</v-icon>

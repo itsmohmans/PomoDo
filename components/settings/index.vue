@@ -29,7 +29,7 @@
             min="5"
             step="5"
             show-ticks
-            :color="timer().settings.timer[timer().currentSession].color"
+            :color="timer().getCurrentColor"
             class="w-100"
             :ticks="sliderTicks.workTimer"
             thumb-label
@@ -57,7 +57,7 @@
             min="0"
             step="5"
             show-ticks
-            :color="timer().settings.timer[timer().currentSession].color"
+            :color="timer().getCurrentColor"
             class="w-100"
             :ticks="sliderTicks.breakTimers"
             thumb-label
@@ -86,7 +86,7 @@
             min="1"
             step="1"
             show-ticks
-            :color="timer().settings.timer[timer().currentSession].color"
+            :color="timer().getCurrentColor"
             class="w-100"
             :ticks="sliderTicks.maxSessions"
             thumb-label
@@ -106,7 +106,7 @@
         <v-list-item>
             <v-checkbox
               v-model="timer().settings.autoStart"
-              :color="timer().settings.timer[timer().currentSession].color"
+              :color="timer().getCurrentColor"
               label="Auto Start Sessions"
               true-icon="mdi-timer-play-outline"
               false-icon="mdi-timer-play-outline"
@@ -120,7 +120,7 @@
         <v-list-item>
             <v-checkbox
               v-model="app().showNotification"
-              :color="timer().settings.timer[timer().currentSession].color"
+              :color="timer().getCurrentColor"
               label="Notifications"
               true-icon="mdi-bell"
               false-icon="mdi-bell-off"
@@ -130,7 +130,7 @@
         <v-list-item>
             <v-checkbox
               v-model="app().playSessionEndSound"
-              :color="timer().settings.timer[timer().currentSession].color"
+              :color="timer().getCurrentColor"
               label="Sounds"
               true-icon="mdi-volume-high"
               false-icon="mdi-volume-off"
@@ -140,7 +140,7 @@
         <v-list-item>
             <v-checkbox
               v-model="app().showThemeToggle"
-              :color="timer().settings.timer[timer().currentSession].color"
+              :color="timer().getCurrentColor"
               label="Show Theme Toggle"
               true-icon="mdi-theme-light-dark"
               false-icon="mdi-theme-light-dark"
@@ -181,7 +181,7 @@
         <!-- TODO: add a button to reset settings to defaults -->
         <v-spacer></v-spacer>
         <v-btn
-          :color="timer().settings.timer[timer().currentSession].color"
+          :color="timer().getCurrentColor"
           variant="text"
           @click="state.dialog = false"
         >
@@ -194,7 +194,7 @@
     v-model="state.snackbar"
     timeout="1500"
     @click="state.snackbar = false"
-    :color="timer().settings.timer[timer().currentSession].color"
+    :color="timer().getCurrentColor"
   >
     Settings saved successfully
   </v-snackbar>
