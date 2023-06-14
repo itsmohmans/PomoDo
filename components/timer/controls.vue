@@ -1,11 +1,11 @@
 <template>
   <div class="controls-container">
     <v-btn
-      :disabled="!(timer().isStarted || timer().getTimeRemaining !== timer().settings[timer().currentSession].time * 60)"
+      :disabled="!(timer().isStarted || timer().getTimeRemaining !== timer().settings.timer[timer().currentSession].time * 60)"
       variant="outlined"
       size="small"
       icon
-      :color="timer().settings[timer().currentSession].color"
+      :color="timer().settings.timer[timer().currentSession].color"
       @click="clearTimer"
     >
       <v-icon>mdi-stop</v-icon>
@@ -13,7 +13,7 @@
     <v-btn
       elevation="4"
       size="x-large" width="144"
-      :color="timer().settings[timer().currentSession].color"
+      :color="timer().settings.timer[timer().currentSession].color"
       :variant="timer().isStarted ? 'outlined' : 'elevated'"
       @click="toggleTimer"
     >
@@ -31,7 +31,7 @@
       variant="outlined"
       size="small"
       icon
-      :color="timer().settings[timer().currentSession].color"
+      :color="timer().settings.timer[timer().currentSession].color"
       @click="timer().nextSession()"
     >
       <v-icon>mdi-skip-next</v-icon>
@@ -43,7 +43,7 @@ import { useTimerStore as timer } from '/stores/timer';
 import { useDisplay } from 'vuetify'
 
 const { mobile } = useDisplay()
-const {toggleTimer, clearTimer} = useTimerControls()
+const { toggleTimer, clearTimer } = useTimerControls()
 
 // Keyboard shortcut to toggle timer (spacebar)
 onKeyStroke(" ", (e) => {

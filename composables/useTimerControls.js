@@ -15,15 +15,15 @@ export const useTimerControls = () => {
 
   const startTimer = () => {
     if (timer.getTimeRemaining <= 0) {
-      const currentSession = timer.settings[timer.currentSession].text
+      const currentSession = timer.settings.timer[timer.currentSession].text
       
       timer.nextSession()
       if (app.playSessionEndSound) playAlarm()
-      const nextSession = timer.settings[timer.currentSession].text
+      const nextSession = timer.settings.timer[timer.currentSession].text
   
       if (app.showNotification) showNotification(currentSession, nextSession)
       
-      if (timer.autoStart)
+      if (timer.settings.autoStart)
         return
       return toggleTimer()
     }

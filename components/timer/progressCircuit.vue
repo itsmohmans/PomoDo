@@ -6,12 +6,12 @@
       :width="3"
       class="progress"
       :model-value="(timer().getTimeRemaining * 100) / (timer().getSessionTime * 60)"
-      :color="timer().settings[timer().currentSession].color"
+      :color="timer().settings.timer[timer().currentSession].color"
     >
     {{ String(getMinutes()).padStart(2, '0') }}:{{ String(getSeconds()).padStart(2, '0') }}
     </v-progress-circular>
     <div class="session-info">
-      <p>{{ timer().settings[timer().getCurrentSession].text }}</p>
+      <p>{{ timer().settings.timer[timer().getCurrentSession].text }}</p>
       <p>Session {{ timer().getCurrentSessionNumber }} / {{ timer().getMaxSessions }}</p>
     </div>
   </div>
@@ -23,7 +23,7 @@ const getSeconds = () => timer().getTimeRemaining - 60 * getMinutes()
 
 useHead(() => {
   return {
-    titleTemplate: timer().isStarted ? `${timer().settings[timer().getCurrentSession].text} - ${getMinutes()} Mins left | PomoDo` : 'PomoDo'
+    titleTemplate: timer().isStarted ? `${timer().settings.timer[timer().getCurrentSession].text} - ${getMinutes()} Mins left | PomoDo` : 'PomoDo'
   }
 })
 

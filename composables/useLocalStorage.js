@@ -5,8 +5,9 @@ const storageKeys = {
   timer: 'timer-settings',
   app: 'app-settings'
 }
+
 export const storeSettings = () => {
-  const timerSettings = useTimerStore().$state
+  const timerSettings = useTimerStore().$state.settings
   const appSettings = useAppStore().$state
 
   localStorage.setItem(storageKeys.timer, JSON.stringify(timerSettings))
@@ -20,7 +21,7 @@ export const getSettings = () => {
   }
   
   if (storedSettings.timer){
-    useTimerStore().$state = JSON.parse(storedSettings.timer)
+    useTimerStore().$state.settings = JSON.parse(storedSettings.timer)
   }
 
   if (storedSettings.app){

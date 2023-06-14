@@ -24,19 +24,19 @@
         <!-- Work Time -->
         <v-list-item title="Work Sessions">
           <v-slider
-            v-model="timer().settings['work'].time"
+            v-model="timer().settings.timer['work'].time"
             max="60"
             min="5"
             step="5"
             show-ticks
-            :color="timer().settings[timer().currentSession].color"
+            :color="timer().settings.timer[timer().currentSession].color"
             class="w-100"
             :ticks="sliderTicks.workTimer"
             thumb-label
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer().settings['work'].time"
+                v-model="timer().settings.timer['work'].time"
                 hide-details
                 single-line
                 density="compact"
@@ -50,21 +50,21 @@
         <v-list-item
           v-for="value, i in ['short-break', 'long-break']"
           :key="i"
-          :title="timer().settings[value].text">
+          :title="timer().settings.timer[value].text">
           <v-slider
-            v-model="timer().settings[value].time"
+            v-model="timer().settings.timer[value].time"
             max="60"
             min="0"
             step="5"
             show-ticks
-            :color="timer().settings[timer().currentSession].color"
+            :color="timer().settings.timer[timer().currentSession].color"
             class="w-100"
             :ticks="sliderTicks.breakTimers"
             thumb-label
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer().settings[value].time"
+                v-model="timer().settings.timer[value].time"
                 hide-details
                 single-line
                 density="compact"
@@ -81,19 +81,19 @@
           subtitle="The number of work sessions before a long break"
           >
           <v-slider
-            v-model="timer().maxSessions"
+            v-model="timer().settings.maxSessions"
             max="10"
             min="1"
             step="1"
             show-ticks
-            :color="timer().settings[timer().currentSession].color"
+            :color="timer().settings.timer[timer().currentSession].color"
             class="w-100"
             :ticks="sliderTicks.maxSessions"
             thumb-label
           >
             <template v-slot:append>
               <v-text-field
-                v-model="timer().maxSessions"
+                v-model="timer().settings.maxSessions"
                 hide-details
                 single-line
                 density="compact"
@@ -105,8 +105,8 @@
         </v-list-item>
         <v-list-item>
             <v-checkbox
-              v-model="timer().autoStart"
-              :color="timer().settings[timer().currentSession].color"
+              v-model="timer().settings.autoStart"
+              :color="timer().settings.timer[timer().currentSession].color"
               label="Auto Start Sessions"
               true-icon="mdi-timer-play-outline"
               false-icon="mdi-timer-play-outline"
@@ -120,7 +120,7 @@
         <v-list-item>
             <v-checkbox
               v-model="app().showNotification"
-              :color="timer().settings[timer().currentSession].color"
+              :color="timer().settings.timer[timer().currentSession].color"
               label="Notifications"
               true-icon="mdi-bell"
               false-icon="mdi-bell-off"
@@ -130,7 +130,7 @@
         <v-list-item>
             <v-checkbox
               v-model="app().playSessionEndSound"
-              :color="timer().settings[timer().currentSession].color"
+              :color="timer().settings.timer[timer().currentSession].color"
               label="Sounds"
               true-icon="mdi-volume-high"
               false-icon="mdi-volume-off"
@@ -140,7 +140,7 @@
         <v-list-item>
             <v-checkbox
               v-model="app().showThemeToggle"
-              :color="timer().settings[timer().currentSession].color"
+              :color="timer().settings.timer[timer().currentSession].color"
               label="Show Theme Toggle"
               true-icon="mdi-theme-light-dark"
               false-icon="mdi-theme-light-dark"
@@ -181,7 +181,7 @@
         <!-- TODO: add a button to reset settings to defaults -->
         <v-spacer></v-spacer>
         <v-btn
-          :color="timer().settings[timer().currentSession].color"
+          :color="timer().settings.timer[timer().currentSession].color"
           variant="text"
           @click="state.dialog = false"
         >
@@ -194,7 +194,7 @@
     v-model="state.snackbar"
     timeout="1500"
     @click="state.snackbar = false"
-    :color="timer().settings[timer().currentSession].color"
+    :color="timer().settings.timer[timer().currentSession].color"
   >
     Settings saved successfully
   </v-snackbar>
