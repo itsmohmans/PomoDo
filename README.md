@@ -42,13 +42,17 @@ Clone the project
 Install dependencies (node v18)
 
 ```bash
-  npm install
+  npm i
+  # or
+  pnpm i
 ```
 
 Run the app on http://localhost:3000
 
 ```bash
   npm run dev
+  # or
+  pnpm dev
 ```
 
 ## Roadmap
